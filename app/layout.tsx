@@ -1,16 +1,12 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import NavBar from "./NavBar";
+import "@radix-ui/themes/styles.css";
+import "./theme-config.css";
 import "./globals.css";
+import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Inter } from "next/font/google";
+import type { Metadata } from "next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={inter.variable}>
+        <Theme appearance="light" accentColor="violet">
+          <NavBar />
+          <main className="p-5">{children}</main>
+          {/* <ThemePanel/> */}
+        </Theme>
       </body>
     </html>
   );
 }
+
+/**
+ * To use the inter classnames we need to modify it according to radix ui, that we can see how 
+ * we can do this on radix ui official website in the Typography section inside the "Themes"
+ */
