@@ -63,7 +63,7 @@ const Dropdown = () => {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
         <Button className="cursor-pointer" variant="soft">
-          <Link href="/issues/new">New Issues</Link>
+          <Link className="no-underline" href="/issues/new">New Issues</Link>
         </Button>
       </div>
       <Issuelist filter = {selectedFilter} />

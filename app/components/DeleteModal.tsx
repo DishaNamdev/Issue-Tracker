@@ -1,11 +1,31 @@
+'use client';
 import React from "react";
 import { Flex, Button, Box } from "@radix-ui/themes";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface DeleteModalProps {
-  setDeleteClicked: (value: boolean) => void;
+  setDeleteClicked: (value: boolean) => void,
+  setEditClicked: (value: boolean) => void,
+  params: { issueId: string }
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ setDeleteClicked }) => {
+const DeleteModal: React.FC<DeleteModalProps> = ({ params, setDeleteClicked, setEditClicked }) => {
+  
+  const router = useRouter();
+
+  const handleDeleteClick = async () => {
+    try{
+      const response = await axios.delete(`/api/issues/${params.issueId}`);
+      if(response.data){
+        setDeleteClicked(true);
+        setEditClicked(false);
+        router.push('/issues');
+      }
+    }catch(error){
+      console.log("Error occured >> ", error);
+    }
+  };
   
   return (
     <Flex direction="column" gap="5" align="center" justify="between" className="h-40 w-fil p-8 bg-white rounded-md shadow-md">
@@ -17,7 +37,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ setDeleteClicked }) => {
       <Box as="div" style={{display:'flex', justifyContent:'space-evenly'}} className="mt-4 w-full flex items-center justify-self-between">
         <Button onClick={() => setDeleteClicked(false)} style={{cursor:'pointer', borderRadius:'5px', padding:'.3rem'}} color="red" variant="soft"> Cancel</Button>
 
-        <Button onClick={() => setDeleteClicked(false)} style={{cursor:'pointer', borderRadius:'5px', padding:'.3rem'}} color="green" variant="soft">Confirm</Button>
+        <Button onClick={handleDeleteClick} style={{cursor:'pointer', borderRadius:'5px', padding:'.3rem'}} color="green" variant="soft">Confirm</Button>
       </Box>
     </Flex>
   );

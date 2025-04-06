@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 import { createIssueSchema } from "@/app/validationSchemas";
 
-// Fetch all issues
+// Fetch single issue
 export async function GET( req: NextRequest, { params }: { params: { id: string } } ) {
   const { id } = params;
   try {
@@ -22,6 +22,7 @@ export async function GET( req: NextRequest, { params }: { params: { id: string 
   }
 }
 
+//EDIT ISSUE  
 export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -60,5 +61,32 @@ export async function PUT(
       { error: "Failed to update issue" },
       { status: 500 }
     );
+  }
+}
+
+
+// Delete one issue
+export async function DELETE(req: NextRequest, { params }: { params: {id: string}}){
+  const { id } = params;
+
+  try{
+    //check if the issue already exist in the DB
+    const existingIssue = await prisma.issue.findUnique({
+      where: { id: Number(id)},
+    });
+  
+    if(!existingIssue){
+      return NextResponse.json({error: 'Issue not found!'}, {status: 404});
+    }
+
+    const deletedIssue = await prisma.issue.delete({
+      where: { id: Number(id)}
+    });
+    
+    return NextResponse.json(deletedIssue, {status: 200});
+  }
+  catch(error){
+    console.log("error >> ", error);
+    return NextResponse.json({error: "Failed to delete the issue"}, { status: 500});
   }
 }

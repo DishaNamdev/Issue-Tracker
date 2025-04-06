@@ -19,6 +19,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import CustomPortal from "@/app/components/CustomPortal";
 import Spinner from "@/app/components/Spinner";
 import { IssueSchema } from "@/app/validationSchemas";
+import { useRouter } from "next/navigation";
 
 const IssueDescription = ({ params }: { params: { issueId: string } }) => {
   // const par = use(params);
@@ -27,6 +28,8 @@ const IssueDescription = ({ params }: { params: { issueId: string } }) => {
   const [editClicked, setEditClicked] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [updatedIssue, setUpdatedIssue] = useState<any>();
+
+  const router = useRouter();
 
   //make the call to fetch the issue on the basis of issueId
   useEffect(() => {
@@ -51,10 +54,9 @@ const IssueDescription = ({ params }: { params: { issueId: string } }) => {
     setEditClicked(true);
   };
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = () => {
     setDeleteClicked(true);
-    setEditClicked(false);
-  };
+  }
 
   const handleSaveClicked = async () => {
     setIsSaving(true);
@@ -199,7 +201,7 @@ const IssueDescription = ({ params }: { params: { issueId: string } }) => {
       </Flex>
       {deleteClicked && (
         <CustomPortal setDeleteClicked={setDeleteClicked}>
-          <DeleteModal setDeleteClicked={setDeleteClicked} />
+          <DeleteModal setEditClicked={setEditClicked} params={params} setDeleteClicked={setDeleteClicked} />
         </CustomPortal>
       )}
     </div>
