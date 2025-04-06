@@ -2,17 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+![image](https://github.com/user-attachments/assets/048ec638-25af-4100-b99f-dbd22dc68df9)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![image](https://github.com/user-attachments/assets/5fe57701-6436-455b-943a-b181f91c9375)
+
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
