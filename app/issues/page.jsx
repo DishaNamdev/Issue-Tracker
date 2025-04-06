@@ -1,13 +1,12 @@
-import React from 'react';
-import { Button } from '@radix-ui/themes';
-import { Link } from '@radix-ui/themes';
+import React from "react";
+import Dropdown from "../components/Dropdown";
 
-const page = () => {
+const Issues = () => {
   return (
-    <div>
-      <Button><Link href="/issues/new">New Issues</Link></Button>
+    <div className="w-full h-full justify-center items-center flex">
+      <Dropdown/>
     </div>
-  )
-}
+  );
+};
 
-export default page;
+export default Issues;
